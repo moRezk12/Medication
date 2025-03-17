@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Medication - تسجيل الدخول</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #0a0a0a;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            background: #1a1a1a;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 0 40px rgba(241, 196, 15, 0.1);
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .logo {
+            text-align: center;
+            font-size: 2.2rem;
+            color: #f1c40f;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: #f1c40f;
+            border-radius: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        input {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: #222;
+            color: #fff;
+            transition: all 0.3s ease;
+            padding-right: 45px;
+        }
+
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(241, 196, 15, 0.3);
+            background: #2a2a2a;
+        }
+
+        .form-group i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        input:focus+i {
+            color: #f1c40f;
+        }
+
+        button {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #f1c40f 0%, #d4ac0d 100%);
+            color: #121212;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button:hover {
+            box-shadow: 0 5px 20px rgba(241, 196, 15, 0.3);
+        }
+
+        .links {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .links a {
+            color: #f1c40f;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .signup-section {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .signup-section p {
+            color: #888;
+            margin-bottom: 1rem;
+        }
+
+        .signup-btn {
+            background: transparent;
+            color: #f1c40f;
+            border: 2px solid #f1c40f;
+            padding: 0.8rem 2rem;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            border-radius: 30px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .signup-btn:hover {
+            background: rgba(241, 196, 15, 0.1);
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem;
+            }
+
+            .logo {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="logo">Online Medication</div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" placeholder="البريد الإلكتروني" required>
+            </div>
+
+            <div class="form-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="كلمة المرور" required>
+            </div>
+
+            <button type="submit">تسجيل الدخول</button>
+        </form>
+
+        <div class="links">
+        <a href="forgetpassword.html">نسيت كلمة المرور؟</a>
+
+        </div>
+
+        <div class="signup-section">
+            <p>ليس لدي حساب</p>
+            <button class="signup-btn">إنشاء حساب جديد</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+
+    <script>
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', () => {
+                btn.style.transform = 'scale(0.97)';
+            });
+
+            btn.addEventListener('mouseup', () => {
+                btn.style.transform = 'scale(1)';
+            });
+        });
+
+      document.getElementById('loginForm').addEventListener('submit', e => {
+            e.preventDefault();
+
+            const submitBtn = document.querySelector('#loginForm button');
+            submitBtn.innerHTML = 'جاري التحميل...';
+            submitBtn.style.opacity = '0.7';
+            submitBtn.disabled = true;
+            submitBtn.style.cursor = 'not-allowed';
+
+            setTimeout(() => {
+                window.location.href = 'homepage.html'; // الانتقال للصفحة الرئيسية
+            }, 2000);
+        });
+
+        document.querySelector('.signup-btn').addEventListener('click', () => {
+            window.location.href = 'signup.html';
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Medication - الصفحة الرئيسية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/your-kit-code.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #fff;
+            text-align: center;
+        }
+
+        .header {
+            background: #1a1a1a;
+            padding: 1rem 2rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            color: #f1c40f;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #f1c40f;
+        }
+
+        .search-container {
+            margin: 120px auto 30px auto;
+            max-width: 500px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px;
+            border-radius: 25px;
+            border: none;
+            font-size: 1.2rem;
+            text-align: center;
+            background: #333;
+            color: white;
+            outline: none;
+        }
+
+        .search-box::placeholder {
+            color: #bbb;
+        }
+
+        .hero {
+            padding: 2rem;
+        }
+
+        .featured-products {
+            padding: 4rem 2rem;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 2rem auto;
+        }
+
+        .product-card {
+            background: #1a1a1a;
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .footer {
+            background: #1a1a1a;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo">Online Medication</div>
+        <div class="nav-links">
+            <a href="#home">الرئيسية</a>
+            <a href="#services">الخدمات</a>
+            <a href="#products">المتجر</a>
+            <a href="#contact">اتصل بنا</a>
+        </div>
+    </header>
+
+    <div class="search-container">
+        <input type="text" class="search-box" id="searchInput" placeholder="🔍 ابحث عن أي دواء...">
+    </div>
+
+    <section class="hero" id="home">
+        <h1>صيدليتك الإلكترونية الأولى</h1>
+        <p>احصل على أدويتك بكل سهولة وأمان</p>
+    </section>
+
+    <section class="featured-products" id="products">
+        <h2>منتجات مميزة</h2>
+        <div class="product-grid" id="productGrid">
+            <div class="product-card" data-name="باراسيتامول">
+                <img src="https://images.pexels.com/photos/3850687/pexels-photo-3850687.jpeg" alt="دواء"
+                    class="product-image">
+                <h4>فيتامين</h4>
+            </div>
+
+            <div class="product-card" data-name="فيتامين سي">
+                <img src="https://images.pexels.com/photos/593451/pexels-photo-593451.jpeg" alt="فيتامين"
+                    class="product-image">
+                <h4>العناية بالبشرة</h4>
+            </div>
+
+            <div class="product-card" data-name="مكمل غذائي">
+                <img src="https://images.pexels.com/photos/208512/pexels-photo-208512.jpeg" alt="مكمل غذائي"
+                    class="product-image">
+                <h4>مكمل غذائي</h4>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer" id="contact">
+        <div class="logo">Online Medication</div>
+        <p>جميع الحقوق محفوظة © 2024</p>
+    </footer>
+
+    <script>
+        document.getElementById('searchInput').addEventListener('input', function () {
+            let searchValue = this.value.toLowerCase();
+            let products = document.querySelectorAll('.product-card');
+
+            products.forEach(function (product) {
+                let productName = product.getAttribute('data-name').toLowerCase();
+                if (productName.includes(searchValue)) {
+                    product.classList.remove('hidden');
+                } else {
+                    product.classList.add('hidden');
+                }
+            });
+        });
+
+        document.querySelectorAll('.product-card').forEach(function (card) {
+            card.addEventListener('click', function () {
+                window.location.href = 'elements.html';
+            });
+        });
+    </script>
+</body>
+
+</html>

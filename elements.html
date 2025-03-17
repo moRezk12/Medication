@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر الأدوية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #fff;
+            text-align: center;
+        }
+
+        .header {
+            background: #1a1a1a;
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            color: #f1c40f;
+            font-weight: bold;
+        }
+
+        .cart {
+            position: relative;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: red;
+            color: white;
+            font-size: 0.8rem;
+            padding: 5px 8px;
+            border-radius: 50%;
+            display: none;
+        }
+
+        .products-container {
+            padding: 100px 2rem 4rem;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 2rem auto;
+        }
+
+        .product-card {
+            background: #1a1a1a;
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .order-btn {
+            background: #f1c40f;
+            color: black;
+            border: none;
+            padding: 10px 15px;
+            font-size: 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+
+        .order-btn:hover {
+            background: #d4ac0d;
+        }
+
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            color: black;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            width: 350px;
+            z-index: 1001;
+            text-align: center;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .remove-btn,
+        .confirm-btn {
+            background: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        .confirm-btn {
+            background: green;
+        }
+
+        .close-cart {
+            background: #333;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin-top: 15px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="logo">متجر الأدوية</div>
+        <div class="cart" onclick="viewCart()">
+            🛒 <span class="cart-count" id="cartCount">0</span>
+        </div>
+    </header>
+
+    <section class="products-container">
+        <h2>منتجاتنا</h2>
+        <div class="product-grid">
+            <div class="product-card" data-name="باراسيتامول" data-price="50"
+                data-image="https://images.pexels.com/photos/593451/pexels-photo-593451.jpeg">
+                <img src="https://images.pexels.com/photos/593451/pexels-photo-593451.jpeg" alt="باراسيتامول"
+                    class="product-image">
+                <h4>باراسيتامول</h4>
+                <p>50 جنيه</p>
+                <button class="order-btn" onclick="addToCart(this)">اطلب الآن</button>
+            </div>
+
+            <div class="product-card" data-name="فيتامين سي" data-price="80"
+                data-image="https://images.pexels.com/photos/208512/pexels-photo-208512.jpeg">
+                <img src="https://images.pexels.com/photos/208512/pexels-photo-208512.jpeg" alt="فيتامين سي"
+                    class="product-image">
+                <h4>فيتامين سي</h4>
+                <p>80 جنيه</p>
+                <button class="order-btn" onclick="addToCart(this)">اطلب الآن</button>
+            </div>
+
+            <div class="product-card" data-name="مكملات فيتامين د" data-price="120"
+                data-image="https://images.pexels.com/photos/5947748/pexels-photo-5947748.jpeg">
+                <img src="https://images.pexels.com/photos/5947748/pexels-photo-5947748.jpeg" alt="فيتامين د"
+                    class="product-image">
+                <h4>مكملات فيتامين د</h4>
+                <p>120 جنيه</p>
+                <button class="order-btn" onclick="addToCart(this)">اطلب الآن</button>
+            </div>
+
+            <div class="product-card" data-name="أوميغا 3" data-price="150"
+                data-image="https://images.pexels.com/photos/671417/pexels-photo-671417.jpeg">
+                <img src="https://images.pexels.com/photos/671417/pexels-photo-671417.jpeg" alt="أوميغا 3"
+                    class="product-image">
+                <h4>أوميغا 3</h4>
+                <p>150 جنيه</p>
+                <button class="order-btn" onclick="addToCart(this)">اطلب الآن</button>
+            </div>
+        </div>
+    </section>
+
+    <div class="cart-modal" id="cartModal">
+        <h2>🛒 سلة المشتريات</h2>
+        <div id="cartItems"></div>
+        <p id="cartTotal"></p>
+        <button class="close-cart" onclick="closeCart()">إغلاق</button>
+        <button class="confirm-btn" onclick="confirmOrder()">تأكيد الطلب</button>
+    </div>
+
+    <script>
+        let cart = [];
+
+        function addToCart(button) {
+            let productCard = button.parentElement;
+            let productName = productCard.getAttribute("data-name");
+            let productPrice = parseInt(productCard.getAttribute("data-price"));
+            let productImage = productCard.getAttribute("data-image");
+
+            let existingProduct = cart.find(p => p.name === productName);
+            if (existingProduct) {
+                existingProduct.quantity += 1;
+            } else {
+                cart.push({
+                    name: productName,
+                    price: productPrice,
+                    image: productImage,
+                    quantity: 1
+                });
+            }
+
+            updateCart();
+        }
+
+        function updateCart() {
+            let cartCount = document.getElementById("cartCount");
+            let totalItems = cart.reduce((sum, p) => sum + p.quantity, 0);
+            cartCount.textContent = totalItems;
+            cartCount.style.display = totalItems > 0 ? "block" : "none";
+        }
+
+        function viewCart() {
+            let cartModal = document.getElementById("cartModal");
+            let cartItemsDiv = document.getElementById("cartItems");
+            let total = 0;
+
+            cartItemsDiv.innerHTML = "";
+            cart.forEach((p, index) => {
+                total += p.quantity * p.price;
+                cartItemsDiv.innerHTML += `
+                <div class="cart-item">
+                    <img src="${p.image}" width="50" height="50" style="border-radius: 5px; margin-right: 10px;">
+                    ${p.name} × ${p.quantity} = ${p.quantity * p.price} جنيه
+                    <button class="remove-btn" onclick="removeFromCart(${index})">إلغاء</button>
+                </div>`;
+            });
+
+            document.getElementById("cartTotal").textContent = `الإجمالي: ${total} جنيه`;
+            cartModal.style.display = "block";
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+            viewCart();
+        }
+
+        function confirmOrder() {
+            alert("تم تأكيد الطلب بنجاح!");
+            cart = [];
+            updateCart();
+            closeCart();
+        }
+
+        function closeCart() {
+            document.getElementById("cartModal").style.display = "none";
+        }
+    </script>
+
+</body>
+
+</html>
